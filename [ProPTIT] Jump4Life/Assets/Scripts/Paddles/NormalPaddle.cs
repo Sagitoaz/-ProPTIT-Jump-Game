@@ -23,18 +23,22 @@ public class NormalPaddle : PaddleController
         if (_canDamage)
         {
             Damage(1);
-            StartCoroutine(DamageCoolDown(0.5f));
         }
     }
     protected override void Damage(int dmg)
     {
         _health -= dmg;
+        if (_health > 0)
+        {
+            StartCoroutine(DamageCoolDown(0.5f));
+        }
         if (_health == 1)
         {
             _spriteRenderer.sprite = _spriteImgs[1];
         }
         else if (_health <= 0)
         {
+            StopAllCoroutines();
             DestroyPaddle();
         }
     }

@@ -7,6 +7,7 @@ public class PaddlePool : MonoBehaviour
     public static PaddlePool Instance;
     [SerializeField] private PaddleController _paddlePrefabs;
     [SerializeField] private List<PaddleController> _paddlePool = new List<PaddleController>();
+    [SerializeField] private Transform _paddleContainer;
     private int _paddlePoolSize = 10;
     private void Awake()
     {
@@ -22,7 +23,7 @@ public class PaddlePool : MonoBehaviour
     {
         for (int idx = 0; idx < _paddlePoolSize; idx++)
         {
-            PaddleController newPaddle = Instantiate(_paddlePrefabs, transform.position, Quaternion.identity);
+            PaddleController newPaddle = Instantiate(_paddlePrefabs, transform.position, Quaternion.identity, _paddleContainer);
             newPaddle.gameObject.SetActive(false);
             _paddlePool.Add(newPaddle);
         }
@@ -44,6 +45,9 @@ public class PaddlePool : MonoBehaviour
     }
     public void ReturnPaddleToPool(PaddleController usedPaddle)
     {
+        usedPaddle.SetIsTrigger(true);
+        usedPaddle.transform.position = this.transform.position;
         usedPaddle.gameObject.SetActive(false);
+        usedPaddle.ResetPaddle();
     }
 }

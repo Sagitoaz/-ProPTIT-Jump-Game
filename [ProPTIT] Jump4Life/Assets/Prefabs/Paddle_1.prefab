@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4030461117369962334}
   - component: {fileID: 2855144193859937704}
   - component: {fileID: 3364837371007422965}
+  - component: {fileID: 3729268190564715118}
   m_Layer: 0
   m_Name: Paddle_1
   m_TagString: Paddle
@@ -116,7 +117,7 @@ BoxCollider2D:
     serializedVersion: 2
     m_Bits: 4294967295
   m_IsTrigger: 0
-  m_UsedByEffector: 0
+  m_UsedByEffector: 1
   m_UsedByComposite: 0
   m_Offset: {x: 0.016419172, y: -0.011264443}
   m_SpriteTilingProperty:
@@ -149,3 +150,22 @@ MonoBehaviour:
   - {fileID: -290920402, guid: ea5c232f3dae72d4cb2dfa8eb80dd683, type: 3}
   - {fileID: 1440386664, guid: ea5c232f3dae72d4cb2dfa8eb80dd683, type: 3}
   _canDamage: 0
+--- !u!251 &3729268190564715118
+PlatformEffector2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6012476608260584408}
+  m_Enabled: 1
+  m_UseColliderMask: 1
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RotationalOffset: 0
+  m_UseOneWay: 1
+  m_UseOneWayGrouping: 1
+  m_SurfaceArc: 180
+  m_UseSideFriction: 0
+  m_UseSideBounce: 0
+  m_SideArc: 1

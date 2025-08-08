@@ -11,7 +11,7 @@ public abstract class PaddleController : MonoBehaviour
     protected Camera _camera;
     protected Vector2 _direction;
     protected float _halfPaddleSize;
-    [SerializeField] protected int _health = 3;
+    [SerializeField] protected int _health = 2;
     [SerializeField] protected Sprite[] _spriteImgs;
     protected abstract void CalculateMovement();
     protected abstract void Damage(int dmg);
@@ -36,27 +36,43 @@ public abstract class PaddleController : MonoBehaviour
     }
     protected void DestroyPaddle()
     {
-        // Debug.Log("Destroy Paddle");
+        // PaddlesManager.Instance._paddleManager.Remove(this);
+        if (transform.childCount > 0)
+        {
+            foreach (Transform child in transform)
+            {
+                if (child.CompareTag(GameConfig.PLAYER_TAG))
+                {
+                    child.SetParent(null);
+                }
+            }
+        }
+        PaddlePool.Instance.ReturnPaddleToPool(this);
     }
-    // private void OnTriggerExit2D(Collider2D other)
-    // {
-    //     if (other.gameObject.CompareTag(GameConfig.PLAYER_TAG))
-    //     {
-    //         DestroyPaddle();
-    //     }
-    // }
+    public void ResetPaddle()
+    {
+        _health = 2;
+        _spriteRenderer.sprite = _spriteImgs[0];
+        _canDamage = false;
+    }
     public void SetIsTrigger(bool isTrigger)
     {
         _boxCollider.isTrigger = isTrigger;
     }
     protected IEnumerator DamageCoolDown(float seconds)
     {
+        Debug.Log("Start cooldown on " + gameObject.name);
         _canDamage = false;
         yield return new WaitForSeconds(seconds);
         _canDamage = true;
+        Debug.Log("Cooldown complete on " + gameObject.name);
     }
     public void SetCanDamage(bool value)
     {
         _canDamage = value;
+    }
+    private void OnDisable()
+    {
+        StopAllCoroutines();
     }
 }

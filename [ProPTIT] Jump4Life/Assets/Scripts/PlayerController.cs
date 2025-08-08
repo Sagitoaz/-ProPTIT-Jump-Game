@@ -1,60 +1,125 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    private Rigidbody2D _rb;
+    [Header("Player Settings")]
     [SerializeField] private float _jumpForce = 10f;
+    [SerializeField] private float _deathHeight = -15f;
+    
+    [Header("Debug")]
     [SerializeField] private bool _onPaddle = false;
+    
+    private Rigidbody2D _rb;
     private PaddleController _currentPaddle;
+
     private void Awake()
+    {
+        InitializeComponents();
+    }
+
+    private void Update()
+    {
+        CheckPlayerInput();
+        CheckPlayerDeath();
+    }
+
+    private void InitializeComponents()
     {
         _rb = GetComponent<Rigidbody2D>();
     }
-    private void Update()
+
+    private void CheckPlayerInput()
     {
-        CalculateMovement();
-    }
-    private void CalculateMovement()
-    {
-        if (transform.position.x < -10)
+        bool jumpInput = GetJumpInput();
+        
+        if (jumpInput && _onPaddle)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            Jump();
         }
+    }
+
+    private bool GetJumpInput()
+    {
+        // Touch input
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
-        {
-            if (_onPaddle)
-            {
-                Jump();
-            }
-        }
+            return true;
+            
+        // Mouse input (for testing)
+        if (Input.GetMouseButtonDown(0))
+            return true;
+            
+        return false;
     }
+
     private void Jump()
     {
         _rb.velocity = new Vector2(_rb.velocity.x, _jumpForce);
     }
-    private void OnCollisionEnter2D(Collision2D other)
+
+    private void CheckPlayerDeath()
     {
-        if (other.gameObject.CompareTag(GameConfig.PADDLE_TAG))
+        if (transform.position.y < _deathHeight)
         {
-            _onPaddle = true;
-            _currentPaddle = other.gameObject.GetComponent<PaddleController>();
-            _currentPaddle.SetCanDamage(true);
-            transform.SetParent(other.transform);
-            GameManager.Instance.IncreaseScore(1);
-            GameManager.Instance.MovePaddleToTop(_currentPaddle);
+            RestartGame();
         }
     }
-    private void OnCollisionExit2D(Collision2D other)
+
+    private void RestartGame()
     {
-        if (other.gameObject.CompareTag(GameConfig.PADDLE_TAG))
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (!collision.gameObject.CompareTag(GameConfig.PADDLE_TAG))
+            return;
+
+        Vector2 collisionNormal = collision.contacts[0].normal;
+        
+        // Only register collision if landing on top of paddle
+        if (collisionNormal.y > 0.5f && _rb.velocity.y <= 0f)
         {
-            _onPaddle = false;
+            HandlePaddleLanding(collision.gameObject);
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (!collision.gameObject.CompareTag(GameConfig.PADDLE_TAG))
+            return;
+
+        HandlePaddleExit();
+    }
+
+    private void HandlePaddleLanding(GameObject paddleObject)
+    {
+        _onPaddle = true;
+        _currentPaddle = paddleObject.GetComponent<PaddleController>();
+        
+        // Set paddle properties
+        _currentPaddle.SetCanDamage(true);
+        
+        // Attach player to paddle
+        transform.SetParent(paddleObject.transform);
+        
+        // Update game state
+        GameManager.Instance.IncreaseScore(1);
+        PaddlesManager.Instance.MovePaddleToTop(_currentPaddle);
+    }
+
+    private void HandlePaddleExit()
+    {
+        _onPaddle = false;
+        
+        if (_currentPaddle != null)
+        {
             _currentPaddle.SetIsTrigger(true);
             _currentPaddle.SetCanDamage(false);
-            transform.SetParent(null);
         }
+        
+        // Detach from paddle
+        transform.SetParent(null);
     }
 }
