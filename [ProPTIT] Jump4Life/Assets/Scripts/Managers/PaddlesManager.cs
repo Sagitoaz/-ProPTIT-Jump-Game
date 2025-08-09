@@ -22,6 +22,7 @@ public class PaddlesManager : MonoBehaviour
 
     private Camera _camera;
     private int _paddleCount;
+    public bool _isSetUpDone = false;
 
     private void Awake()
     {
@@ -32,6 +33,7 @@ public class PaddlesManager : MonoBehaviour
     private void Start()
     {
         InitializePaddles();
+        _isSetUpDone = true;
     }
 
     private void InitializeSingleton()
@@ -65,6 +67,8 @@ public class PaddlesManager : MonoBehaviour
         {
             CreatePaddleAtPosition(i);
         }
+        _paddleManager[0].transform.position = _paddlePositions[0];
+        _paddleManager[0].SetAsFirstPaddle(true);
     }
 
     private void CreatePaddleAtPosition(int index)
@@ -121,16 +125,31 @@ public class PaddlesManager : MonoBehaviour
 
     private IEnumerator MovePaddleToPosition(PaddleController paddle, int targetIndex)
     {
-        Vector3 targetPosition = _paddlePositions[targetIndex];
+        if (targetIndex == 0 && paddle.IsFirstPaddle())
+        {
+            paddle.transform.position = _paddlePositions[0];
+            ConfigurePaddleAtIndex(paddle, targetIndex);
+            yield break;
+        }
 
+        Vector3 randomOffset = new Vector3(Random.Range(-1.5f, 1.5f), 0, 0);
+        Vector3 targetPosition = _paddlePositions[targetIndex] + randomOffset;
+        if (targetIndex == 0)
+        {
+            WallManager.Instance.MoveWallUp();
+        }
         // Move paddle to target position
         while (Vector3.Distance(paddle.transform.position, targetPosition) > 0.1f)
         {
             paddle.transform.position = Vector3.MoveTowards(paddle.transform.position, targetPosition, _translatePaddleSpeed * Time.deltaTime);
             yield return null;
         }
+        if (targetIndex == 0)
+        {
+            WallManager.Instance.StopMovingWall();
+        }
 
-        // Snap to exact position
+        // Move paddle to exact position
         paddle.transform.position = targetPosition;
 
         // Configure paddle based on its position

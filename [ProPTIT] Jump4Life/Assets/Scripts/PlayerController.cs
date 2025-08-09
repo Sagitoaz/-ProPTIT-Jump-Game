@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour
             return;
 
         Vector2 collisionNormal = collision.contacts[0].normal;
-        
+
         // Only register collision if landing on top of paddle
         if (collisionNormal.y > 0.5f && _rb.velocity.y <= 0f)
         {
@@ -98,13 +98,10 @@ public class PlayerController : MonoBehaviour
         _onPaddle = true;
         _currentPaddle = paddleObject.GetComponent<PaddleController>();
         
-        // Set paddle properties
         _currentPaddle.SetCanDamage(true);
         
-        // Attach player to paddle
         transform.SetParent(paddleObject.transform);
         
-        // Update game state
         GameManager.Instance.IncreaseScore(1);
         PaddlesManager.Instance.MovePaddleToTop(_currentPaddle);
     }
@@ -119,7 +116,6 @@ public class PlayerController : MonoBehaviour
             _currentPaddle.SetCanDamage(false);
         }
         
-        // Detach from paddle
         transform.SetParent(null);
     }
 }
