@@ -1,18 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public static UIManager Instance { get; private set; }
+    [SerializeField] private GameObject _mainMenu;
+    [SerializeField] private TextMeshProUGUI _highScoreText;
+    private void Awake()
     {
-        
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+        ShowHighScoreText(GameManager.Instance.GetHighScore());
     }
-
-    // Update is called once per frame
-    void Update()
+    public void TurnMainMenu(bool isActive)
     {
-        
+        _mainMenu.SetActive(isActive);
+    }
+    private void ShowHighScoreText(int highScore)
+    {
+        _highScoreText.text = highScore.ToString();
     }
 }

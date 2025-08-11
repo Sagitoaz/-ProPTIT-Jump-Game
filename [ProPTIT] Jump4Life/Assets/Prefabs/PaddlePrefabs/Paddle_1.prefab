@@ -144,12 +144,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 102baef956871954b8ffe3efbdd4ed2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 2
+  _speed: 1.5
   _health: 2
   _spriteImgs:
   - {fileID: -290920402, guid: ea5c232f3dae72d4cb2dfa8eb80dd683, type: 3}
   - {fileID: 1440386664, guid: ea5c232f3dae72d4cb2dfa8eb80dd683, type: 3}
   _canDamage: 0
+  _isFirstPaddle: 0
 --- !u!251 &3729268190564715118
 PlatformEffector2D:
   m_ObjectHideFlags: 0

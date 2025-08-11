@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: cb9e0a8c73536364993ad6f0fa088e76
+guid: 90a4bb983f4c1c745ae69729b5998e16
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -123,13 +123,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Title_0
+      name: MenuButton_0
       rect:
         serializedVersion: 2
-        x: 75
-        y: 257
-        width: 886
-        height: 521
+        x: 13
+        y: 100
+        width: 183
+        height: 201
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,8 +137,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5d54c43c213bab244bf4eaefa4c592f1
-      internalID: -1844695811
+      spriteID: 198db8a0f68403549940be57fed552b4
+      internalID: -1582588392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MenuButton_4
+      rect:
+        serializedVersion: 2
+        x: 206
+        y: 99
+        width: 184
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61dee16a883cd9b4eaa54afcdf65f08e
+      internalID: -2120877427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MenuButton_5
+      rect:
+        serializedVersion: 2
+        x: 407
+        y: 99
+        width: 189
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 252607be2655fc64bbacea1ccf3aa6c9
+      internalID: -705091189
       vertices: []
       indices: 
       edges: []
@@ -154,7 +196,15 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Title_0: -1844695811
+      MenuButton_0: -1582588392
+      MenuButton_1: -1761494459
+      MenuButton_2: 717203930
+      MenuButton_3: -931009897
+      MenuButton_4: -2120877427
+      MenuButton_5: -705091189
+      MenuButton_6: 207781289
+      MenuButton_7: 1746637571
+      MenuButton_8: -778463170
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
