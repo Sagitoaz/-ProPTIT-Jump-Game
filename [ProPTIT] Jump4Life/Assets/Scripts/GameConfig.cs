@@ -7,4 +7,6 @@ public class GameConfig : MonoBehaviour
     public static string PADDLE_TAG = "Paddle";
     public static string PLAYER_TAG = "Player";
     public static string HIGH_SCORE_KEY = "HighScore";
+    public static string PLAYER_IDLE = "Idle";
+    public static string PLAYER_JUMP = "Jump";
 }

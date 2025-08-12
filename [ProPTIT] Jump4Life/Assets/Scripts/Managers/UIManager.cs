@@ -8,6 +8,7 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance { get; private set; }
     [SerializeField] private GameObject _mainMenu;
     [SerializeField] private TextMeshProUGUI _highScoreText;
+    [SerializeField] private TextMeshProUGUI _scoreText;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -25,5 +26,9 @@ public class UIManager : MonoBehaviour
     private void ShowHighScoreText(int highScore)
     {
         _highScoreText.text = highScore.ToString();
+    }
+    public void UpdateScore(int value)
+    {
+        _scoreText.text = "" + value;
     }
 }

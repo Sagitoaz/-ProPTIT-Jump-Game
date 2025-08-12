@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     
     private Rigidbody2D _rb;
     private PaddleController _currentPaddle;
+    private Animator _playerAnim;
 
     private void Awake()
     {
@@ -28,6 +29,7 @@ public class PlayerController : MonoBehaviour
     private void InitializeComponents()
     {
         _rb = GetComponent<Rigidbody2D>();
+        _playerAnim = GetComponent<Animator>();
     }
 
     private void CheckPlayerInput()
@@ -65,6 +67,18 @@ public class PlayerController : MonoBehaviour
             RestartGame();
         }
     }
+    private void FLipPlayer()
+    {
+        Debug.Log(transform.position.x);
+        if (transform.position.x > 0)
+        {
+            transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+        }
+        else
+        {
+            transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+        }
+    }
 
     private void RestartGame()
     {
@@ -96,6 +110,7 @@ public class PlayerController : MonoBehaviour
     private void HandlePaddleLanding(GameObject paddleObject)
     {
         _onPaddle = true;
+        _playerAnim.SetTrigger(GameConfig.PLAYER_IDLE);
         _currentPaddle = paddleObject.GetComponent<PaddleController>();
         
         _currentPaddle.SetCanDamage(true);
@@ -109,7 +124,8 @@ public class PlayerController : MonoBehaviour
     private void HandlePaddleExit()
     {
         _onPaddle = false;
-        
+        _playerAnim.SetTrigger(GameConfig.PLAYER_JUMP);
+        FLipPlayer();
         if (_currentPaddle != null)
         {
             _currentPaddle.SetIsTrigger(true);

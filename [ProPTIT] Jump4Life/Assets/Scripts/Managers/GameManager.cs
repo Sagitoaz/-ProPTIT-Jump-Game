@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         UIManager.Instance.TurnMainMenu(true);
+        UIManager.Instance.UpdateScore(_score);
         SetTimeScale(0);
     }
     private void InitializeSingleton()
@@ -39,6 +40,7 @@ public class GameManager : MonoBehaviour
     public void IncreaseScore(int value)
     {
         _score += value;
+        UIManager.Instance.UpdateScore(_score);
         if (_score > _highScore)
         {
             UpdateHighScore();
