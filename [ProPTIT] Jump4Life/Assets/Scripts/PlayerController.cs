@@ -95,10 +95,7 @@ public class PlayerController : MonoBehaviour
 
     private void HandlePaddleLanding(GameObject paddleObject)
     {
-        _onPaddle = true;
-        _currentPaddle = paddleObject.GetComponent<PaddleController>();
-        
-        _currentPaddle.SetCanDamage(true);
+        _currentPaddle = null;
         
         transform.SetParent(paddleObject.transform);
         
