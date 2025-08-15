@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Player Settings")]
     [SerializeField] private float _jumpForce = 10f;
-    [SerializeField] private float _deathHeight = -15f;
+    private float _deathHeight = -15f;
     
     [Header("Debug")]
     [SerializeField] private bool _onPaddle = false;
@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody2D>();
         _playerAnim = GetComponent<Animator>();
+        _deathHeight = Camera.main.ViewportToWorldPoint(Vector3.zero).y;
     }
 
     private void CheckPlayerInput()
@@ -69,7 +70,6 @@ public class PlayerController : MonoBehaviour
     }
     private void FLipPlayer()
     {
-        Debug.Log(transform.position.x);
         if (transform.position.x > 0)
         {
             transform.rotation = Quaternion.Euler(0f, 180f, 0f);
@@ -116,6 +116,12 @@ public class PlayerController : MonoBehaviour
         _currentPaddle.SetCanDamage(true);
         
         transform.SetParent(paddleObject.transform);
+
+        if (!_currentPaddle.IsFirstPaddle() && Mathf.Abs(_currentPaddle.transform.position.x - transform.position.x) < 0.25f)
+        {
+            UIManager.Instance.CreatePerfect(new Vector3(0, transform.position.y, 0));
+            GameManager.Instance.IncreaseScore(1);
+        }
         
         GameManager.Instance.IncreaseScore(1);
         PaddlesManager.Instance.MovePaddleToTop(_currentPaddle);

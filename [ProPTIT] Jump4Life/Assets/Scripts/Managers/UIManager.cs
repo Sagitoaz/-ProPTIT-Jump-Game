@@ -9,6 +9,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject _mainMenu;
     [SerializeField] private TextMeshProUGUI _highScoreText;
     [SerializeField] private TextMeshProUGUI _scoreText;
+    [SerializeField] private TextMeshProUGUI _perfectPopUp;
+    [SerializeField] private Transform _popupCanvas;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -30,5 +32,10 @@ public class UIManager : MonoBehaviour
     public void UpdateScore(int value)
     {
         _scoreText.text = "" + value;
+    }
+    public void CreatePerfect(Vector3 pos)
+    {
+        TextMeshProUGUI perfect = Instantiate(_perfectPopUp, pos, Quaternion.identity, _popupCanvas);
+        Destroy(perfect, 1f);
     }
 }
