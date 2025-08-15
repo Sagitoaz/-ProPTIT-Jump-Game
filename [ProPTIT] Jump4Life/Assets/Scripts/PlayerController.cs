@@ -134,6 +134,7 @@ public class PlayerController : MonoBehaviour
         FLipPlayer();
         if (_currentPaddle != null)
         {
+            SoundManager.Instance.PlayJumpSound();
             _currentPaddle.SetIsTrigger(true);
             _currentPaddle.SetCanDamage(false);
         }
