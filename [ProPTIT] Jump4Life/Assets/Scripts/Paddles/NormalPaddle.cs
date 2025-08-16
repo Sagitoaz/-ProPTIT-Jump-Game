@@ -28,6 +28,7 @@ public class NormalPaddle : PaddleController
     protected override void Damage(int dmg)
     {
         _health -= dmg;
+        SoundManager.Instance.PlayBreakSound();
         if (_health > 0)
         {
             StartCoroutine(DamageCoolDown(0.5f));

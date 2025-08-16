@@ -119,7 +119,7 @@ public class PlayerController : MonoBehaviour
 
         if (!_currentPaddle.IsFirstPaddle() && Mathf.Abs(_currentPaddle.transform.position.x - transform.position.x) < 0.25f)
         {
-            UIManager.Instance.CreatePerfect(new Vector3(0, transform.position.y, 0));
+            PanelManager.Instance.CreatePerfect(new Vector3(0, transform.position.y, 0));
             GameManager.Instance.IncreaseScore(1);
         }
         

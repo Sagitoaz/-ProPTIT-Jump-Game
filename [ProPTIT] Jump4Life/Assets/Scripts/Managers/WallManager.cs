@@ -2,20 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WallManager : MonoBehaviour
+public class WallManager : Singleton<WallManager>
 {
-    public static WallManager Instance { get; private set; }
     [SerializeField] private WallController _leftWall, _rightWall;
     private Camera _camera;
     public float _halfWallWidth;
-    private void Awake()
+    public override void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
+        base.Awake();
         InitWall();
     }
     private void InitWall()

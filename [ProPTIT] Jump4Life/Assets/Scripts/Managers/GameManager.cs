@@ -1,35 +1,24 @@
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
-    public static GameManager Instance { get; private set; }
-
     [Header("Game Configuration")]
     [SerializeField] private float _timeScale = 1.0f;
 
     [Header("Game State")]
     [SerializeField] private int _score = 0;
     private int _highScore = 0;
-    private void Awake()
+    public override void Awake()
     {
-        InitializeSingleton();
+        base.Awake();
         InitializeGameSettings();
         _highScore = PlayerPrefs.GetInt(GameConfig.HIGH_SCORE_KEY, 0);
     }
     private void Start()
     {
-        UIManager.Instance.TurnMainMenu(true);
-        UIManager.Instance.UpdateScore(_score);
+        PanelManager.Instance.OpenPanel(GameConfig.PANEL_MAINMENU);
+        PanelManager.Instance.UpdateScore(_score);
         SetTimeScale(0);
-    }
-    private void InitializeSingleton()
-    {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
     }
 
     private void InitializeGameSettings()
@@ -40,7 +29,7 @@ public class GameManager : MonoBehaviour
     public void IncreaseScore(int value)
     {
         _score += value;
-        UIManager.Instance.UpdateScore(_score);
+        PanelManager.Instance.UpdateScore(_score);
         if (_score > _highScore)
         {
             UpdateHighScore();
@@ -61,7 +50,8 @@ public class GameManager : MonoBehaviour
     }
     public void StartGame()
     {
-        UIManager.Instance.TurnMainMenu(false);
+        PanelManager.Instance.OpenPanel(GameConfig.PANEL_INGAME);
+        PanelManager.Instance.ClosePanel(GameConfig.PANEL_MAINMENU);
         SetTimeScale(1);
     }
     private void UpdateHighScore()

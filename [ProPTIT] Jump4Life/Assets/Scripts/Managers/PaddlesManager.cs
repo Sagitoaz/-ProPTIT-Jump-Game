@@ -2,10 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PaddlesManager : MonoBehaviour
+public class PaddlesManager : Singleton<PaddlesManager>
 {
-    public static PaddlesManager Instance { get; private set; }
-
     [Header("Paddle Configuration")]
     [SerializeField] private float _translatePaddleSpeed = 5.0f;
     [SerializeField]
@@ -24,9 +22,9 @@ public class PaddlesManager : MonoBehaviour
     private int _paddleCount;
     public bool _isSetUpDone = false;
 
-    private void Awake()
+    public override void Awake()
     {
-        InitializeSingleton();
+        base.Awake();
         InitializeComponents();
     }
 
@@ -34,16 +32,6 @@ public class PaddlesManager : MonoBehaviour
     {
         InitializePaddles();
         _isSetUpDone = true;
-    }
-
-    private void InitializeSingleton()
-    {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
     }
 
     private void InitializeComponents()
