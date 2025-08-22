@@ -11,6 +11,9 @@ public class PlayerController : MonoBehaviour
     
     [Header("Debug")]
     [SerializeField] private bool _onPaddle = false;
+    [SerializeField] private bool _canJump = true;
+    [SerializeField] private float _jumpCoolDown = 0.5f;
+    [SerializeField] private float _nextJump = 0f;
     
     private Rigidbody2D _rb;
     private PaddleController _currentPaddle;
@@ -25,6 +28,7 @@ public class PlayerController : MonoBehaviour
     {
         CheckPlayerInput();
         CheckPlayerDeath();
+        JumpCoolDown();
     }
 
     private void InitializeComponents()
@@ -37,10 +41,20 @@ public class PlayerController : MonoBehaviour
     private void CheckPlayerInput()
     {
         bool jumpInput = GetJumpInput();
-        
-        if (jumpInput && _onPaddle)
+
+        if (jumpInput && _onPaddle && _canJump)
         {
             Jump();
+            _canJump = false;
+            _nextJump = Time.time + _jumpCoolDown;
+        }
+    }
+
+    private void JumpCoolDown()
+    {
+        if (Time.time >= _nextJump)
+        {
+            _canJump = true;
         }
     }
 
@@ -57,11 +71,11 @@ public class PlayerController : MonoBehaviour
             }
             return true;
         }
-            
+
         // Mouse input (for testing)
-            if (Input.GetMouseButtonDown(0))
-                return true;
-            
+        if (Input.GetMouseButtonDown(0))
+            return true;
+
         return false;
     }
 

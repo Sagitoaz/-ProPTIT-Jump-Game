@@ -1096,7 +1096,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7430849522583984486}
         m_TargetAssemblyTypeName: PanelPauseMenu, Assembly-CSharp
-        m_MethodName: OnClickMuteMusic
+        m_MethodName: OnClickMusicButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

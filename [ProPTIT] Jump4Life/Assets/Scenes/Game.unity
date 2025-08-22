@@ -1297,6 +1297,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _jumpForce: 7
   _onPaddle: 0
+  _canJump: 1
+  _jumpCoolDown: 0.8
+  _nextJump: 0
 --- !u!1 &1271392931
 GameObject:
   m_ObjectHideFlags: 0
@@ -1460,6 +1463,7 @@ MonoBehaviour:
   dontDestroyOnLoad: 1
   _timeScale: 1
   _score: 0
+  _isReplayGame: 0
 --- !u!1 &1534267096
 GameObject:
   m_ObjectHideFlags: 0
