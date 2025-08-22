@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
@@ -47,11 +48,19 @@ public class PlayerController : MonoBehaviour
     {
         // Touch input
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        {
+            if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
+            {
+                // Debug.Log("Touch: " + EventSystem.current != null);
+                // Debug.Log("Touch 2: " + EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId));
+                return false;
+            }
             return true;
+        }
             
         // Mouse input (for testing)
-        if (Input.GetMouseButtonDown(0))
-            return true;
+            if (Input.GetMouseButtonDown(0))
+                return true;
             
         return false;
     }
@@ -65,7 +74,7 @@ public class PlayerController : MonoBehaviour
     {
         if (transform.position.y < _deathHeight)
         {
-            RestartGame();
+            GameManager.Instance.RestartGame();
         }
     }
     private void FLipPlayer()
@@ -78,11 +87,6 @@ public class PlayerController : MonoBehaviour
         {
             transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         }
-    }
-
-    private void RestartGame()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -104,6 +108,10 @@ public class PlayerController : MonoBehaviour
         if (!collision.gameObject.CompareTag(GameConfig.PADDLE_TAG))
             return;
 
+        if (collision.gameObject != _currentPaddle.gameObject) return;
+        
+        if (!collision.gameObject.activeInHierarchy) return;
+
         HandlePaddleExit();
     }
 
@@ -117,13 +125,14 @@ public class PlayerController : MonoBehaviour
         
         transform.SetParent(paddleObject.transform);
 
+        Debug.Log("Điểm: " + GameManager.Instance.GetScore());
+
         if (!_currentPaddle.IsFirstPaddle() && Mathf.Abs(_currentPaddle.transform.position.x - transform.position.x) < 0.25f)
         {
             PanelManager.Instance.CreatePerfect(new Vector3(0, transform.position.y, 0));
             GameManager.Instance.IncreaseScore(1);
         }
         
-        GameManager.Instance.IncreaseScore(1);
         PaddlesManager.Instance.MovePaddleToTop(_currentPaddle);
     }
 

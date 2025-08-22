@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -8,6 +9,7 @@ public class GameManager : Singleton<GameManager>
     [Header("Game State")]
     [SerializeField] private int _score = 0;
     private int _highScore = 0;
+    [SerializeField] public bool _isReplayGame = false;
     public override void Awake()
     {
         base.Awake();
@@ -20,7 +22,14 @@ public class GameManager : Singleton<GameManager>
         PanelManager.Instance.UpdateScore(_score);
         SetTimeScale(0);
     }
-
+    private void FixedUpdate()
+    {
+        if (_isReplayGame)
+        {
+            _isReplayGame = !_isReplayGame;
+            StartGame();
+        }
+    }
     private void InitializeGameSettings()
     {
         Time.timeScale = _timeScale;
@@ -41,7 +50,7 @@ public class GameManager : Singleton<GameManager>
     }
     public void ResumeGame()
     {
-        SetTimeScale(_timeScale);
+        SetTimeScale(1);
     }
     public void SetTimeScale(float timeScale)
     {
@@ -51,8 +60,18 @@ public class GameManager : Singleton<GameManager>
     public void StartGame()
     {
         PanelManager.Instance.OpenPanel(GameConfig.PANEL_INGAME);
+        PanelManager.Instance.OpenPanel(GameConfig.PANEL_PAUSE_MENU);
         PanelManager.Instance.ClosePanel(GameConfig.PANEL_MAINMENU);
         SetTimeScale(1);
+    }
+    public void RestartGame()
+    {
+        _score = 0;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+    public void ReplayGame()
+    {
+        _isReplayGame = true;
     }
     private void UpdateHighScore()
     {
@@ -62,5 +81,9 @@ public class GameManager : Singleton<GameManager>
     public int GetHighScore()
     {
         return _highScore;
+    }
+    public int GetScore()
+    {
+        return _score;
     }
 }

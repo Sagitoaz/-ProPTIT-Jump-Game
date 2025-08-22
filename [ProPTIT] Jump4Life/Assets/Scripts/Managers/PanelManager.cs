@@ -37,7 +37,6 @@ public class PanelManager : Singleton<PanelManager>
             return _panelDict[panelName];
         }
         PanelController panel = Resources.Load<PanelController>(GameConfig.UI_PATH + panelName);
-        Debug.Log(GameConfig.UI_PATH + panelName);
         PanelController newPanel = Instantiate(panel, transform);
         newPanel.transform.SetAsLastSibling();
         newPanel.name = panelName;

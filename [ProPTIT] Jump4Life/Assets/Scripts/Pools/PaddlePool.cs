@@ -2,21 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PaddlePool : MonoBehaviour
+public class PaddlePool : Singleton<PaddlePool>
 {
-    public static PaddlePool Instance;
     [SerializeField] private PaddleController _paddlePrefabs;
     [SerializeField] private List<PaddleController> _paddlePool = new List<PaddleController>();
     [SerializeField] private Transform _paddleContainer;
     private int _paddlePoolSize = 10;
-    private void Awake()
+    public override void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
+        base.Awake();
         Init();
     }
     private void Init()

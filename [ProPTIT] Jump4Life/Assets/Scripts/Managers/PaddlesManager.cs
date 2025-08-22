@@ -78,6 +78,7 @@ public class PaddlesManager : Singleton<PaddlesManager>
     {
         while (_paddleManager.IndexOf(currentPaddle) > 0)
         {
+            GameManager.Instance.IncreaseScore(1);
             ReturnPaddleToPool(_paddleManager[0]);
             _paddleManager.RemoveAt(0);
             AddNewPaddleToTop();

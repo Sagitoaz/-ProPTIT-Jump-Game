@@ -11,5 +11,6 @@ public class GameConfig : MonoBehaviour
     public static string PLAYER_JUMP = "Jump";
     public static string PANEL_INGAME = "Panel - InGame";
     public static string PANEL_MAINMENU = "Panel - MainMenu";
+    public static string PANEL_PAUSE_MENU = "Panel - PauseMenu";
     public static string UI_PATH = "UI/";
 }
