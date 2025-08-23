@@ -15,4 +15,12 @@ public class PanelMainMenu : PanelController
     {
         GameManager.Instance.StartGame();
     }
+    public void OnClickSettingButton()
+    {
+        PanelManager.Instance.OpenPanel(GameConfig.PANEL_SETTING);
+    }
+    public void OnClickCustomButton()
+    {
+        PanelManager.Instance.OpenPanel(GameConfig.PANEL_CUSTOM);
+    }
 }

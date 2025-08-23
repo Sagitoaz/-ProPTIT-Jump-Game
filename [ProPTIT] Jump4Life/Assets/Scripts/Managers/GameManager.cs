@@ -26,8 +26,8 @@ public class GameManager : Singleton<GameManager>
     {
         if (_isReplayGame)
         {
-            _isReplayGame = !_isReplayGame;
             StartGame();
+            _isReplayGame = !_isReplayGame;
         }
     }
     private void InitializeGameSettings()
@@ -85,5 +85,9 @@ public class GameManager : Singleton<GameManager>
     public int GetScore()
     {
         return _score;
+    }
+    public bool GetIsReplay()
+    {
+        return _isReplayGame;
     }
 }

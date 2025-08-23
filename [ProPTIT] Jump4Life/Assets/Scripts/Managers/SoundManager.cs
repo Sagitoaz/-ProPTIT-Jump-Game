@@ -47,4 +47,20 @@ public class SoundManager : Singleton<SoundManager>
             _audioSource.PlayOneShot(audio);
         }
     }
+    public int GetMusicActive()
+    {
+        if (_activeBGMusic)
+        {
+            return 0;
+        }
+        return 1;
+    }
+    public int GetSFXActive()
+    {
+        if (_activeSFX)
+        {
+            return 0;
+        }
+        return 1;
+    }
 }

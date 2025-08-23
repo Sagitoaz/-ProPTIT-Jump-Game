@@ -1,14 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PanelPauseMenu : PanelController
 {
     [SerializeField] private GameObject _pauseButton;
     [SerializeField] private GameObject _pauseBoard;
+    [SerializeField] private Sprite[] _soundSprite;
+    [SerializeField] private Image _musicImg;
+    [SerializeField] private Image _sfxImg;
     private void Awake()
     {
         _pauseBoard.SetActive(false);
+    }
+    private void Update()
+    {
+        _musicImg.sprite = _soundSprite[SoundManager.Instance.GetMusicActive()];
+        _sfxImg.sprite = _soundSprite[SoundManager.Instance.GetSFXActive()];
     }
     public void OnClickPauseButton()
     {

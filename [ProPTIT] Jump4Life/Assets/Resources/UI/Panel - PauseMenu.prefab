@@ -893,6 +893,11 @@ MonoBehaviour:
   _destroyOnClose: 0
   _pauseButton: {fileID: 274932868300213397}
   _pauseBoard: {fileID: 6210012448929713609}
+  _soundSprite:
+  - {fileID: 21300000, guid: fe4c74929eed6a64b8453236a8f53077, type: 3}
+  - {fileID: 21300000, guid: a88c8ea128bf8324687d3968e88541b2, type: 3}
+  _musicImg: {fileID: 6153433566456841414}
+  _sfxImg: {fileID: 4230028941604006633}
 --- !u!1 &6210012448929713609
 GameObject:
   m_ObjectHideFlags: 0

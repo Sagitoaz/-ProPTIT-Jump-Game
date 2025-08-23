@@ -139,8 +139,6 @@ public class PlayerController : MonoBehaviour
         
         transform.SetParent(paddleObject.transform);
 
-        Debug.Log("Điểm: " + GameManager.Instance.GetScore());
-
         if (!_currentPaddle.IsFirstPaddle() && Mathf.Abs(_currentPaddle.transform.position.x - transform.position.x) < 0.25f)
         {
             PanelManager.Instance.CreatePerfect(new Vector3(0, transform.position.y, 0));

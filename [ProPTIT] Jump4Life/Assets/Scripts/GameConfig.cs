@@ -12,5 +12,8 @@ public class GameConfig : MonoBehaviour
     public static string PANEL_INGAME = "Panel - InGame";
     public static string PANEL_MAINMENU = "Panel - MainMenu";
     public static string PANEL_PAUSE_MENU = "Panel - PauseMenu";
+    public static string PANEL_SETTING = "Panel - Settings";
+    public static string PANEL_CUSTOM = "Panel - Custom";
     public static string UI_PATH = "UI/";
+    public static string CHARACTER_PATH = "ScriptableObject/Character/";
 }

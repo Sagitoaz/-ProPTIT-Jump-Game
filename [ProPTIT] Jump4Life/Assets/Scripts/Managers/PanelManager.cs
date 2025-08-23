@@ -16,10 +16,13 @@ public class PanelManager : Singleton<PanelManager>
     public override void Awake()
     {
         base.Awake();
-        OpenPanel(GameConfig.PANEL_MAINMENU);
     }
     private void Start()
     {
+        if (!GameManager.Instance.GetIsReplay())
+        {
+            OpenPanel(GameConfig.PANEL_MAINMENU);
+        }
         var panelList = GetComponentsInChildren<PanelController>();
         foreach (PanelController panel in panelList)
         {
@@ -40,7 +43,8 @@ public class PanelManager : Singleton<PanelManager>
         PanelController newPanel = Instantiate(panel, transform);
         newPanel.transform.SetAsLastSibling();
         newPanel.name = panelName;
-        _panelDict[name] = newPanel;
+        _panelDict[panelName] = newPanel;
+        newPanel.gameObject.SetActive(false);
         return newPanel;
     }
     public void RemovePanel(string panelName)
@@ -84,7 +88,10 @@ public class PanelManager : Singleton<PanelManager>
     }
     private void ShowHighScoreText(int highScore)
     {
-        _highScoreText.text = highScore.ToString();
+        if (_highScoreText != null)
+        {
+            _highScoreText.text = highScore.ToString();
+        }
     }
     public void UpdateScore(int value)
     {
