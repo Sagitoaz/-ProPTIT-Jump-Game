@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3d5fcd215569fa46ad055a4834aaf60, type: 3}
   m_Name: AceZero
   m_EditorClassIdentifier: 
-  Icon: {fileID: -910638639, guid: db9231336007072428cdec3ad0138a64, type: 3}
+  Icon: {fileID: -910638639, guid: 3939afec6959d074bb0caed45ab7d507, type: 3}
   FullBody: {fileID: 178350279, guid: db9231336007072428cdec3ad0138a64, type: 3}
   CharacterName: Ace Zero
+  Character: {fileID: 5358680483274211048, guid: f3edc65bfb103a74c86d739ad4b4c6c2, type: 3}

@@ -8,13 +8,13 @@ public class PlayerController : MonoBehaviour
     [Header("Player Settings")]
     [SerializeField] private float _jumpForce = 10f;
     private float _deathHeight = -15f;
-    
+
     [Header("Debug")]
     [SerializeField] private bool _onPaddle = false;
     [SerializeField] private bool _canJump = true;
     [SerializeField] private float _jumpCoolDown = 0.5f;
     [SerializeField] private float _nextJump = 0f;
-    
+
     private Rigidbody2D _rb;
     private PaddleController _currentPaddle;
     private Animator _playerAnim;
@@ -34,7 +34,6 @@ public class PlayerController : MonoBehaviour
     private void InitializeComponents()
     {
         _rb = GetComponent<Rigidbody2D>();
-        _playerAnim = GetComponent<Animator>();
         _deathHeight = Camera.main.ViewportToWorldPoint(Vector3.zero).y;
     }
 
@@ -123,7 +122,7 @@ public class PlayerController : MonoBehaviour
             return;
 
         if (collision.gameObject != _currentPaddle.gameObject) return;
-        
+
         if (!collision.gameObject.activeInHierarchy) return;
 
         HandlePaddleExit();
@@ -132,11 +131,14 @@ public class PlayerController : MonoBehaviour
     private void HandlePaddleLanding(GameObject paddleObject)
     {
         _onPaddle = true;
-        _playerAnim.SetTrigger(GameConfig.PLAYER_IDLE);
+        if (_playerAnim != null)
+        {
+            _playerAnim.SetTrigger(GameConfig.PLAYER_IDLE);
+        }
         _currentPaddle = paddleObject.GetComponent<PaddleController>();
-        
+
         _currentPaddle.SetCanDamage(true);
-        
+
         transform.SetParent(paddleObject.transform);
 
         if (!_currentPaddle.IsFirstPaddle() && Mathf.Abs(_currentPaddle.transform.position.x - transform.position.x) < 0.25f)
@@ -144,14 +146,17 @@ public class PlayerController : MonoBehaviour
             PanelManager.Instance.CreatePerfect(new Vector3(0, transform.position.y, 0));
             GameManager.Instance.IncreaseScore(1);
         }
-        
+
         PaddlesManager.Instance.MovePaddleToTop(_currentPaddle);
     }
 
     private void HandlePaddleExit()
     {
         _onPaddle = false;
-        _playerAnim.SetTrigger(GameConfig.PLAYER_JUMP);
+        if (_playerAnim != null)
+        {
+            _playerAnim.SetTrigger(GameConfig.PLAYER_JUMP);
+        }
         FLipPlayer();
         if (_currentPaddle != null)
         {
@@ -159,7 +164,11 @@ public class PlayerController : MonoBehaviour
             _currentPaddle.SetIsTrigger(true);
             _currentPaddle.SetCanDamage(false);
         }
-        
+
         transform.SetParent(null);
+    }
+    public void SetAnimator(Animator animator)
+    {
+        _playerAnim = animator;
     }
 }

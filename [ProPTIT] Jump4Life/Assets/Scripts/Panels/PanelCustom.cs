@@ -22,14 +22,25 @@ public class PanelCustom : PanelController
     public void LoadAvatar()
     {
         CharacterData[] avatars = Resources.LoadAll<CharacterData>(GameConfig.CHARACTER_PATH);
+        string selectedCharacterName = GameManager.Instance.GetSelectedCharacterName();
+
+        if (string.IsNullOrEmpty(selectedCharacterName))
+        {
+            selectedCharacterName = GameConfig.DEFAULT_CHARACTER_NAME;
+        }
+        
         foreach (CharacterData avatar in avatars)
         {
             ButtonController avatarButton = Instantiate(_avatarSelector, _avatartBoard);
-            avatarButton.SetIcon(avatar.Icon);
-            avatarButton.SetFullBody(avatar.FullBody);
+            avatarButton.SetCharacterData(avatar);
             avatarButton.SetFullBodyArea(_fullBodyArea);
             avatarButton.SetCharacterName(_characterName);
-            avatarButton.SetName(avatar.CharacterName);
+            
+            if (avatar.CharacterName == selectedCharacterName)
+            {
+                _fullBodyArea.sprite = avatar.FullBody;
+                _characterName.text = avatar.CharacterName;
+            }
         }
     }
 }

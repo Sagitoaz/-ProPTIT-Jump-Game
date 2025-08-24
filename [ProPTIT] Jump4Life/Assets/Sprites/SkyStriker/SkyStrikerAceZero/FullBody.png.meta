@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b8f31b718592c484fac8ae3048f92843
+guid: 3939afec6959d074bb0caed45ab7d507
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -123,22 +123,22 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Head_0
+      name: ChatGPT_Image_21_34_56_16_thg_8__2025-removebg-preview_1
       rect:
         serializedVersion: 2
-        x: 125
-        y: 151
-        width: 242
-        height: 254
+        x: 67
+        y: 261
+        width: 333
+        height: 228
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 452659b2b4a5d1541b24cc3f4a16ae3f
-      internalID: 244118510
+      spriteID: 7962c57fda5c74343ad24c8e8db00668
+      internalID: -910638639
       vertices: []
       indices: 
       edges: []
@@ -154,7 +154,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Head_0: 244118510
+      ChatGPT_Image_21_34_56_16_thg_8__2025-removebg-preview_0: 178350279
+      ChatGPT_Image_21_34_56_16_thg_8__2025-removebg-preview_1: -910638639
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

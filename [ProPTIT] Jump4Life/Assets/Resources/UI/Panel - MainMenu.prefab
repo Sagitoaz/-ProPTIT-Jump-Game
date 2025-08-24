@@ -213,6 +213,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _destroyOnClose: 0
   _highScoreText: {fileID: 2787271263414768316}
+  _characterImage: {fileID: 3197304121780622999}
 --- !u!1 &4698088361996901571
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,3 +15,4 @@ MonoBehaviour:
   Icon: {fileID: 1357413561, guid: 8c8dcd76900205f478b1d9d9c9b6778d, type: 3}
   FullBody: {fileID: 1385719876, guid: f08ef7da8f7995d45a922adec62e9415, type: 3}
   CharacterName: Sengoku Astray
+  Character: {fileID: 4190413971882061673, guid: 726ca649ed94236409de05e2c3c67ada, type: 3}

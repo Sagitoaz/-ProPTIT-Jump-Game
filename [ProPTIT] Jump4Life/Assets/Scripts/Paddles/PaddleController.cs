@@ -6,7 +6,7 @@ public abstract class PaddleController : MonoBehaviour
 {
     protected BoxCollider2D _boxCollider;
     protected SpriteRenderer _spriteRenderer;
-    [SerializeField] protected float _speed = 3.0f;
+    [SerializeField] protected float _speed = 1.5f;
     protected float _screenLeft, _screenRight;
     protected Camera _camera;
     protected Vector2 _direction = Vector2.zero;
@@ -27,9 +27,10 @@ public abstract class PaddleController : MonoBehaviour
         _screenRight = _camera.ViewportToWorldPoint(Vector3.right).x - _halfPaddleSize - WallManager.Instance._halfWallWidth;
         Init();
     }
-    private void FixedUpdate()
+    private void Update()
     {
         if (!PaddlesManager.Instance._isSetUpDone) return;
+        
         if (_isFirstPaddle)
         {
             if (Mathf.Abs(transform.position.x) > 0.01f)
