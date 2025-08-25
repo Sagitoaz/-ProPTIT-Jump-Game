@@ -30,7 +30,7 @@ public abstract class PaddleController : MonoBehaviour
     private void Update()
     {
         if (!PaddlesManager.Instance._isSetUpDone) return;
-        
+
         if (_isFirstPaddle)
         {
             if (Mathf.Abs(transform.position.x) > 0.01f)
@@ -70,6 +70,10 @@ public abstract class PaddleController : MonoBehaviour
         _canDamage = false;
         _isFirstPaddle = false;
     }
+    public void ResetSprite()
+    {
+        _spriteRenderer.sprite = _spriteImgs[0];
+    }
     public void SetIsTrigger(bool isTrigger)
     {
         _boxCollider.isTrigger = isTrigger;
@@ -92,9 +96,13 @@ public abstract class PaddleController : MonoBehaviour
     {
         _isFirstPaddle = isFirst;
     }
-    
+
     public bool IsFirstPaddle()
     {
         return _isFirstPaddle;
+    }
+    public void SetSpriteImages(Sprite[] sprites)
+    {
+        _spriteImgs = sprites;
     }
 }

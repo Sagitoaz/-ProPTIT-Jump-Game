@@ -44,4 +44,12 @@ public class PaddlePool : Singleton<PaddlePool>
         usedPaddle.gameObject.SetActive(false);
         usedPaddle.ResetPaddle();
     }
+    public void SetSpriteImages(Sprite[] sprites)
+    {
+        foreach (PaddleController paddle in _paddlePool)
+        {
+            paddle.SetSpriteImages(sprites);
+            paddle.ResetSprite();
+        }
+    }
 }

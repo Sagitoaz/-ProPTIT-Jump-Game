@@ -9,5 +9,4 @@ public class CharacterData : ScriptableObject
     public Sprite FullBody;
     public string CharacterName;
     public GameObject Character;
-    // public Animator CharacterAnim;
 }

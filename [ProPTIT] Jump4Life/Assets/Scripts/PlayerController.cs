@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviour
     {
         if (transform.position.y < _deathHeight)
         {
-            GameManager.Instance.RestartGame();
+            GameManager.Instance.GameOver();
         }
     }
     private void FLipPlayer()

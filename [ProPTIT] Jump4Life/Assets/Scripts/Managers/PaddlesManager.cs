@@ -5,6 +5,7 @@ using UnityEngine;
 public class PaddlesManager : Singleton<PaddlesManager>
 {
     [Header("Paddle Configuration")]
+    [SerializeField] private Sprite[] _paddleImgs;
     [SerializeField] private float _translatePaddleSpeed = 5.0f;
     [SerializeField]
     private Vector3[] _paddlePositions = {
@@ -158,5 +159,16 @@ public class PaddlesManager : Singleton<PaddlesManager>
         {
             paddle.SetIsTrigger(true);
         }
+    }
+    public void SetPaddleImages(Sprite[] paddleImages)
+    {
+        Debug.Log("Paddle from data: " + paddleImages.Length);
+        _paddleImgs = paddleImages;
+        Debug.Log("Paddle in manager: " + _paddleImgs.Length);
+        PaddlePool.Instance.SetSpriteImages(paddleImages);
+    }
+    public Sprite[] GetPaddleImages()
+    {
+        return _paddleImgs;
     }
 }

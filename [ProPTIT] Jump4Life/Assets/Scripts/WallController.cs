@@ -44,11 +44,8 @@ public class WallController : MonoBehaviour
     {
         _startPos = start;
     }
-    public void DebugLog()
+    public void SetSpriteImage(Sprite img)
     {
-        Debug.Log("Current Pos: " + transform.position);
-        Debug.Log("Target Pos: " + _movingTarget);
-        Debug.Log("Start Pos: " + _startPos);
-        Debug.Log("____________________");
+        _spriteRenderer.sprite = img;
     }
 }

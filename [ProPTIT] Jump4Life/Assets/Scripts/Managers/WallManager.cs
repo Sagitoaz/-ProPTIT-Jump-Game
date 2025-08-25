@@ -39,4 +39,9 @@ public class WallManager : Singleton<WallManager>
         _leftWall.SetIsMoving(false);
         _rightWall.SetIsMoving(false);
     }
+    public void SetWallImage(Sprite img)
+    {
+        _leftWall.SetSpriteImage(img);
+        _rightWall.SetSpriteImage(img);
+    }
 }
