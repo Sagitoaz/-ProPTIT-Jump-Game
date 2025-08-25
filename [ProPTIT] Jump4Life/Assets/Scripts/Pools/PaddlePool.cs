@@ -52,4 +52,11 @@ public class PaddlePool : Singleton<PaddlePool>
             paddle.ResetSprite();
         }
     }
+    public void IncreaseSpeeds(float times)
+    {
+        foreach (PaddleController paddle in _paddlePool)
+        {
+            paddle.SetSpeed(times);
+        }
+    }
 }

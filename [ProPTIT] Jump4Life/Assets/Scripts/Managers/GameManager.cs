@@ -13,13 +13,12 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private string _selectedCharacterName = "";
     [SerializeField] private string _selectedThemeName = "";
     private CharacterData _currentCharacterData;
-    private ThemeData _currentThemeData;
-
     [Header("Game State")]
     [SerializeField] private int _score = 0;
     private int _highScore = 0;
     [SerializeField] public bool _isReplayGame = false;
     [SerializeField] private bool _isRestartGame = false;
+    [SerializeField] private int milestone = 10;
     public override void Awake()
     {
         base.Awake();
@@ -75,6 +74,11 @@ public class GameManager : Singleton<GameManager>
     {
         _score += value;
         PanelManager.Instance.UpdateScore(_score);
+        if (_score >= milestone)
+        {
+            milestone += 10;
+            PaddlePool.Instance.IncreaseSpeeds(1.2f);
+        }
         if (_score > _highScore)
         {
             UpdateHighScore();
@@ -178,7 +182,7 @@ public class GameManager : Singleton<GameManager>
             if (theme.ThemeName == themeName)
             {
                 SetCurrentBackGround(theme.Background);
-                SetCurrentThemeData(theme);
+                // SetCurrentThemeData(theme);
                 PaddlesManager.Instance.SetPaddleImages(theme.Paddle);
                 WallManager.Instance.SetWallImage(theme.Wall);
                 break;
@@ -217,8 +221,8 @@ public class GameManager : Singleton<GameManager>
     {
         _currentCharacterData = characterData;
     }
-    public void SetCurrentThemeData(ThemeData themeData)
-    {
-        _currentThemeData = themeData;
-    }
+    // public void SetCurrentThemeData(ThemeData themeData)
+    // {
+    //     _currentThemeData = themeData;
+    // }
 }

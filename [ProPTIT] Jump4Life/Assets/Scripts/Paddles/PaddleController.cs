@@ -105,4 +105,8 @@ public abstract class PaddleController : MonoBehaviour
     {
         _spriteImgs = sprites;
     }
+    public void SetSpeed(float times)
+    {
+        _speed *= times;
+    }
 }

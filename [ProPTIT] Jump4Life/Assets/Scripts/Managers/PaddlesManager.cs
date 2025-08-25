@@ -162,9 +162,7 @@ public class PaddlesManager : Singleton<PaddlesManager>
     }
     public void SetPaddleImages(Sprite[] paddleImages)
     {
-        Debug.Log("Paddle from data: " + paddleImages.Length);
         _paddleImgs = paddleImages;
-        Debug.Log("Paddle in manager: " + _paddleImgs.Length);
         PaddlePool.Instance.SetSpriteImages(paddleImages);
     }
     public Sprite[] GetPaddleImages()
